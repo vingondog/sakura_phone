@@ -302,6 +302,7 @@ body.notime .msg .tm,body.notime #chatList .t,body.notime #smsList .t{display:no
 .lpbtns svg{width:28px;height:28px;fill:#fff}.lpbtns small{font-size:13px}
 .banner{position:absolute;top:52px;left:8px;right:8px;z-index:260;background:rgba(245,245,245,.92);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-radius:22px;padding:12px 14px;display:flex;gap:11px;align-items:center;color:#000;transform:translateY(-250%);transition:transform .35s cubic-bezier(.2,.9,.3,1);cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.2)}
 .banner.show{transform:none}
+.banner{touch-action:none;user-select:none}
 .banner .ic{width:38px;height:38px;border-radius:9px;position:relative;flex-shrink:0}
 .banner .nb{flex:1;min-width:0}
 .banner .top{display:flex;justify-content:space-between}
@@ -754,18 +755,51 @@ const CHATS = [
       keywords: ["슌페이", "쑨페이", "슌 페이", "쑨 페이", "순페이", "shunpei"],
       delay: 5,
       readAll: true,
+      unreadAfter: true,   // 전화가 끝난 뒤 보내는 메시지엔 다시 '1' (안 읽음)
       message: ["...사쿠라군?"],
       call: {
         delay: 2,   // 메시지 오고 몇 초 뒤 전화
         lines: [
           "...사쿠라군.",
-          "미안해. 많이 기다렸지.",
-          "...지금은 길게 말 못 해. 그래도 목소리는 듣고 싶었어.",
-          "미안"
+          "미안해....",
+          "...지금은 길게 말 못 해.",
+          "그래도 목소리는 듣고 싶었어.",
+          "말 못 하고 떠난거 미안해.",
+          "사쿠라군에게 상처 주는게 두려웠어",
+          "미안",
+          "행복해야해, 사쿠라군",
+        ],
+        // ▶ 거절하거나 통화 도중에 끊으면 redialDelay초 뒤 다시 걸어와요 (최대 redialTimes번)
+        //   redialLines: [ [두 번째 전화], [세 번째 전화] ]  (마지막 것이 반복)
+        redial: true,
+        redialDelay: 3,
+        redialTimes: 2,
+        redialLines: [
+          ["...사쿠라군, 끊지 마.", "부탁이야. 조금만."],
+          ["미안해, 사쿠라군."],
+          ["말 못 하고 떠난거 미안해."],
+          ["사쿠라군에게 상처 주는게 두려웠어"],
+          ["미안.."]
+          
         ],
       },
     },
     msgs: [
+
+      { date: "4월 5일 화요일" },
+        { from: "them", text: "사쿠라군 오늘 정말 수고 많았어", time: "오후 9:00" },
+          { from: "them", text: "엄청 멋졌어", time: "오후 9:00" },
+          { from: "me",   text: "딱히", time: "오후 9:02" },
+           { from: "them", text: "내가 했던 말은 진심이야", time: "오후 9:00" },
+           { from: "me",   text: "무슨 말", time: "오후 9:02" },
+           { from: "them",   text: "사쿠라군을", time: "오후 9:02" },
+           { from: "them",   text: "멋있다고 생각한다는 말", time: "오후 9:02" },
+           { from: "them",   text: "어라 사쿠라군", time: "오후 9:02" },
+           { from: "them",   text: "답장 안 해줘?", time: "오후 9:02" },
+           { from: "me",   text: "신경 꺼", time: "오후 9:02" },
+           { from: "them",   text: "부끄러워하네~", time: "오후 9:02" },
+           { from: "me",   text: "아니야", time: "오후 9:02" },
+
       { date: "5월 21일 목요일" },
       { from: "them", text: "사쿠라군 오늘 정말 고마워", time: "오후 9:00" },
       { from: "me",   text: "별거아냐", time: "오후 9:02" },
@@ -839,6 +873,19 @@ const CHATS = [
       { from: "them", text: "ㅎㅎ", time: "오후 8:00" },
 
 
+       { date: "8월 12일 월요일" },
+      { from: "me",   text: "좋아하는 장소가 학교라는건", time: "오전 9:20" },
+      { from: "me",   text: "진심이냐", time: "오전 9:20" },
+      { from: "them",   text: "응, 진심이지", time: "오전 9:20" },
+      { from: "me",   text: "그렇냐", time: "오전 9:20" },
+      { from: "them",   text: "그건 왜?", time: "오전 9:20" },
+      { from: "me",   text: "안자이나 다른 녀석들 보면", time: "오전 9:20" },
+      { from: "me",   text: "학교는 좋아하지만", time: "오전 9:20" },
+      { from: "me",   text: "다들 공부 때문에 싫다고 해서", time: "오전 9:20" },
+     { from: "me",   text: "하긴, 너 공부 못 하는 편도 아니고", time: "오전 9:20" },
+      { from: "them",   text: "학교를 좋아하는 이유는", time: "오전 9:20" },
+      { from: "them",   text: "사쿠라군이 학교에 있기 때문 아닐까?", time: "오전 9:20" },
+      { from: "them",   text: "어라, 사쿠라군 또 부끄러워서 숨었다", time: "오전 9:20" },
 
       { date: "8월 20일 목요일" },
       { from: "me",   text: "그거 어떻게 하는거냐", time: "오전 9:20" },
@@ -848,10 +895,21 @@ const CHATS = [
       { from: "me",   text: "영상통화", time: "오전 9:20" },
       { from: "them", text: "메세지로 보내는게 아니라 버튼으로...", time: "오전 9:00" },
       { from: "me",   text: "몰라", time: "오전 9:20" },
-      { from: "them", text: "사쿠라군 갈 길이 머네", time: "오전 9:00" },
+      { from: "them", text: "사쿠라군 ... 갈 길이 머네", time: "오전 9:00" },
 
 
-      
+      { date: "8월 29일 금요일" },
+      { from: "them", text: "사쿠라군 오늘은 나랑 늦게까지 어울려 줄 수 있어?", time: "오전 9:00" },
+      { from: "me",   text: "문제는 없는데", time: "오전 9:20" },
+      { from: "me",   text: "갑자기 왜", time: "오전 9:20" },
+      { from: "them", text: "사쿠라군이랑 더 오래 있고 싶어서?", time: "오전 9:00" },
+      { from: "them", text: "장난이고", time: "오전 9:00" },
+      { from: "them", text: "오늘은 뭔가, 들어가기가 싫어서", time: "오전 9:00" },
+      { from: "me",   text: "마음대로 해", time: "오전 9:20" },
+      { from: "them", text: "응 사쿠라군은 다정하네", time: "오전 9:00" },
+      { from: "them", text: "저녁 같이 먹을까? 포토스는 어때?", time: "오전 9:00" },
+      { from: "me",   text: "어차피 너는 안 먹잖아", time: "오전 9:20" },
+      { from: "them", text: "사쿠라군 먹는 것만 봐도 배불러~", time: "오전 9:00" },
 
       { date: "9월 11일 금요일" },
       { from: "them", text: "오늘 순찰을 돌다가", time: "오후 8:00" },
@@ -870,6 +928,7 @@ const CHATS = [
       { from: "me", call: "video", duration: "1:30", time: "오후 11:40" },
       { from: "them", text: "사쿠라군 고마워", time: "오후 8:00" },
       { from: "me",   text: "잘 자라", time: "오전 9:20" },
+      { from: "them", text: "사쿠라군도", time: "오후 8:00" },
 
 
   
@@ -930,7 +989,7 @@ const CHATS = [
       { from: "me", call: "video", status: "missed" },
       { from: "me", call: "video", status: "missed" },
 
-      { date: "오늘 월요일" },
+      { date: "오늘" },
       { from: "me", call: "video", status: "missed" },
       { from: "me", call: "video", status: "missed" },
       { from: "me", call: "video", status: "missed" },
@@ -1400,7 +1459,7 @@ const SMS = [
       { from: "them", text: "지금은 전화를 받을 수 없습니다. 나중에 연락드릴게요.", time: "오후 4:02" },
 
       // ↓ 사라지기 전날, 마지막 문자
-      { date: "10월 22일" },
+      { date: "10월 21일" },
       { from: "them", text: "사쿠라군, 오늘 바래다줘서 고마워", time: "오후 9:48" },
       { from: "me", text: "별거 아냐", time: "오후 9:50" },
       { from: "them", text: "내일 학교에서 봐", time: "오후 9:51" },
@@ -1513,26 +1572,46 @@ const MEMOS = [
    label: 이름 아래 글자를 직접 정하고 싶을 때 (예: "스팸 의심")
    count: 같은 기록 횟수 (3이면 "이름 (3)")                                              */
 const CALLS = [
-  { name: "스오 하야토",     type: "noans",  time: "오늘",      count: 4 },
-  { name: "070-4823-1190",   type: "missed", time: "오늘",      count: 1, label: "스팸 의심" },
-  { name: "니레이 아키히코", type: "missed", time: "오늘",      count: 2 },
+  // ↓ 오늘 (시간 순서대로, 위가 최근)
+  { name: "니레이 아키히코", type: "missed", time: "오후 12:41", count: 1 },
+  { name: "츠게우라 타이가", type: "missed", time: "오후 12:33", count: 2 },
+  { name: "우메미야 하지메", type: "missed", time: "오후 12:20", count: 1 },
+  { name: "스오 하야토",     type: "noans",  time: "오후 12:05", count: 4 },
+  { name: "니레이 아키히코", type: "missed", time: "오전 11:58", count: 1 },
+  { name: "키류 미츠키",     type: "missed", time: "오전 11:30", count: 1 },
+  { name: "츠바키노 타스쿠", type: "missed", time: "오전 10:47", count: 1 },
+  { name: "070-4823-1190",   type: "missed", time: "오전 10:02", count: 1, label: "스팸 의심" },
+  { name: "스기시타 쿄타로", type: "missed", time: "오전 9:15",  count: 1 },
+  { name: "니레이 아키히코", type: "missed", time: "오전 8:40",  count: 3 },
+  // ↓ 지난 기록
   { name: "츠게우라 타이가", type: "missed", time: "어제",      count: 1 },
   { name: "키류 미츠키",     type: "missed", time: "어제",      count: 1 },
+  { name: "니레이 아키히코", type: "missed", time: "어제",      count: 2 },
+  { name: "니레이 아키히코", type: "missed", time: "11월 7일",  count: 2 },
   { name: "우메미야 하지메", type: "missed", time: "11월 6일",  count: 2 },
+  { name: "키류 미츠키",     type: "missed", time: "11월 5일",  count: 1 },
   { name: "스오 하야토",     type: "noans",  time: "11월 4일",  count: 4 },
   { name: "스오 하야토",     type: "noans",  time: "11월 3일",  count: 6 },
   { name: "1661-0000",       type: "missed", time: "11월 3일",  count: 1, label: "광고 전화" },
   { name: "스오 하야토",     type: "noans",  time: "11월 2일",  count: 5 },
   { name: "스오 하야토",     type: "noans",  time: "11월 1일",  count: 5 },
+  { name: "츠바키노 타스쿠", type: "missed", time: "10월 31일", count: 1 },
   { name: "니레이 아키히코", type: "out",    time: "10월 30일", count: 1 },
+  { name: "니레이 아키히코", type: "missed", time: "10월 29일", count: 1 },
   { name: "스오 하야토",     type: "noans",  time: "10월 28일", count: 3 },
   { name: "츠바키노 타스쿠", type: "in",     time: "10월 26일", count: 1 },
+  { name: "우메미야 하지메", type: "in",     time: "10월 25일", count: 1 },
   { name: "니레이 아키히코", type: "in",     time: "10월 24일", count: 1 },
   { name: "스오 하야토",     type: "noans",  time: "10월 23일", count: 2 },
   { name: "스오 하야토",     type: "in",     time: "10월 20일", count: 1 },
   { name: "우메미야 하지메", type: "out",    time: "10월 19일", count: 1 },
+  { name: "스오 하야토",     type: "missed", time: "10월 18일", count: 1 },
   { name: "02-3392-7781",    type: "missed", time: "10월 15일", count: 3, label: "스팸 의심" },
   { name: "니레이 아키히코", type: "out",    time: "10월 12일", count: 1 },
+  { name: "스오 하야토",     type: "missed", time: "10월 10일", count: 2 },
+  { name: "츠게우라 타이가", type: "missed", time: "10월 4일",  count: 1 },
+  { name: "니레이 아키히코", type: "missed", time: "9월 28일",  count: 1 },
+  { name: "엔도 야마토",     type: "missed", time: "9월 25일",  count: 2 },
 ];
 
 /* ----- 연락처 -----
@@ -2264,7 +2343,7 @@ function openChat(kind, i) {
     if (n >= c.msgs.length || current !== "chat") return;
     const m = c.msgs[n++];
     if (m.date && c.unreadFrom && m.date.startsWith(c.unreadFrom)) unreadZone = true;
-    bubble(c, m, unreadZone);
+    bubble(c, m, unreadZone || !!m.unread);
     if (m.date || CONFIG.chatDelay <= 0) next();
     else chatTimer = setTimeout(next, CONFIG.chatDelay * 1000 / SET.speed);
   })();
@@ -2293,7 +2372,8 @@ function sendMsg(photo) {
   if (!photo) input.value = "";
   const kind = curKind, idx = currentChat, c = KINDS[kind].data[idx];
   const mine = photo ? { from: "me", image: photo, time: nowTime() } : { from: "me", text, time: nowTime() };
-  c.msgs.push(mine); bubble(c, mine, !!c.unreadFrom).classList.add("new"); drawList(kind);
+  if (c.unreadLive) mine.unread = true;
+  c.msgs.push(mine); bubble(c, mine, !!c.unreadFrom || !!mine.unread).classList.add("new"); drawList(kind);
   triggerCallEvent(kind, idx);
   if (triggerKeywordEvent(kind, idx, text)) return;
 
@@ -2516,11 +2596,38 @@ function showBanner(from, text, onTap, app) {
   b.querySelector(".icbg").innerHTML = iconHTML(app === "sms" ? "sms" : "line");
   b.querySelector("b").textContent = from;
   b.querySelector("p").textContent = text;
-  b.onclick = () => { b.classList.remove("show"); if (onTap) onTap(); };
+  b._tap = () => { b.classList.remove("show"); if (onTap) onTap(); };
   b.classList.add("show");
   clearTimeout(bannerTimer);
   bannerTimer = setTimeout(() => b.classList.remove("show"), 4500);
 }
+// 배너를 위로 밀면 닫히고, 그냥 누르면 열려요
+(function bannerSwipe() {
+  const b = $("banner");
+  let y0 = null, moved = false;
+  b.addEventListener("pointerdown", e => {
+    y0 = e.clientY; moved = false;
+    b.setPointerCapture(e.pointerId);
+    b.style.transition = "none";
+    clearTimeout(bannerTimer);
+  });
+  b.addEventListener("pointermove", e => {
+    if (y0 === null) return;
+    const dy = Math.min(0, e.clientY - y0);
+    if (dy < -5) moved = true;
+    b.style.transform = `translateY(${dy}px)`;
+  });
+  const end = e => {
+    if (y0 === null) return;
+    const dy = e.clientY - y0; y0 = null;
+    b.style.transition = ""; b.style.transform = "";
+    if (dy < -25) b.classList.remove("show");                       // 위로 밀었으면 닫기
+    else if (!moved) { if (b._tap) b._tap(); }                       // 그냥 눌렀으면 열기
+    else bannerTimer = setTimeout(() => b.classList.remove("show"), 3000);
+  };
+  b.addEventListener("pointerup", end);
+  b.addEventListener("pointercancel", end);
+})();
 function deliverLine(name, texts) { deliverMsg("line", name, texts); }
 function deliverMsg(kind, name, texts) {
   const list = KINDS[kind].data;
@@ -2563,15 +2670,22 @@ function triggerKeywordEvent(kind, idx, text) {
       drawList(kind);
       if (!viewing() && ev.message) showBanner(c.name, [].concat(ev.message).pop(), () => openChat(kind, idx));
       if (!ev.call) return;
-      setTimeout(() => {
+      let redials = 0;
+      const ring = (lines) => {
         if (current === "call") return;
-        const who = { name: c.name, avatar: c.avatar, color: c.color, hideLetter: c.hideLetter, lines: ev.call.lines, hangupLine: ev.call.hangupLine };
-        ringIncoming(who, kind === "line" ? "LINE 음성통화" : "휴대전화", (ok, sec) => {
+        const who = { name: c.name, avatar: c.avatar, color: c.color, hideLetter: c.hideLetter, lines, hangupLine: ev.call.hangupLine };
+        ringIncoming(who, kind === "line" ? "LINE 음성통화" : "휴대전화", (ok, sec, userEnded) => {
           c.msgs.push(ok ? { from: "them", call: "voice", duration: fmtSec(sec) } : { from: "them", call: "voice", status: "missed" });
+          if (ev.unreadAfter) c.unreadLive = true;           // 전화 뒤로는 다시 안 읽음(1)
           drawList(kind);
+          if (ev.call.redial && userEnded && redials < (ev.call.redialTimes || 2)) {   // 거절·도중에 끊으면 다시 걸어옴
+            redials++;
+            setTimeout(() => ring(pickLines(ev.call.lines, ev.call.redialLines, redials + 1)), ((ev.call.redialDelay || 3) + 0.8) * 1000);
+          }
           if (callBack === "chat" && curKind === kind && currentChat === idx) return () => openChat(kind, idx);
         });
-      }, (ev.call.delay || 2) * 1000);
+      };
+      setTimeout(() => ring(ev.call.lines), (ev.call.delay || 2) * 1000);
     }, 1200);
   }, (ev.delay || 5) * 1000);
   return true;
