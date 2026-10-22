@@ -760,10 +760,11 @@ const CHATS = [
       redial: true,
       redialDelay: 2,
       redialTimes: 3,
+      // 다시 걸어올 때마다 대사가 달라져요: [ [두 번째 전화], [세 번째 전화], [네 번째 전화] ]
       redialLines: [
-        "사쿠라~ 왜 끊어~",
-        "아직 할 말 남았다니까?",
-        "...그렇게 피하면 나 상처받잖아~",
+        ["사쿠라~ 왜 끊어~", "아직 할 말 남았다니까?"],
+        ["또 끊었네~", "...그렇게 피하면 나 상처받잖아~"],
+        ["마지막이야, 사쿠라.", "그 녀석 일, 정말 안 궁금해?"],
       ],
     },
     msgs: [
@@ -1546,6 +1547,27 @@ const CONTACTS = [
       "아프시면 너무 무리하진 마세요",
       "괜찮아지면 나와주세요, 다들 기다리고 있어요!"
     ],
+    // ▶ 두 번째로 걸었을 때부터 나오는 대사 (세 번째, 네 번째도 다르게 하려면 [ [두번째], [세번째] ] 처럼)
+   nextLines: [
+      [
+        "사쿠라 씨! 또 전화 주셨네요?!",
+        "혹시... 무슨 일 있으신 거죠?",
+        "말 안 하셔도 괜찮아요. 필요하시면 지금 바로 갈게요!",
+      ],
+      [
+        "사쿠라 씨...?",
+        "지금 가고 있어요! 기다려 주세요!",
+        "어... 스기시타 씨랑, 모미지카와 씨랑...",
+        "네? 스기시타 씨요?",
+        "오시겠다고 하셔서...",
+        "금방 갈게요!",
+      ],
+      [
+        "금방 갈게요!",
+      ],
+    ],
+  
+  
   },
   {
     name: "스오 하야토", number: "010-0174-0328", avatar: "suo.jpg", color: "#9d4edd",
@@ -1561,6 +1583,19 @@ const CONTACTS = [
       "학교 안 와서 다들 걱정했어",
       "스오 일은 너무 혼자 끌어안지 마~",
     ],
+     nextLines: [
+      [
+      "사쿠라 쨩?",
+      "혹시 심심해?",
+      "병문안이라도 필요한거야?",
+      "오늘은 푹 쉬어~",
+      ],
+      [
+
+      ],
+
+  ],
+
   },
   {
     name: "츠게우라 타이가", number: "010-0181-0515", avatar: "cg.jpg", color: "#457b9d",
@@ -1569,12 +1604,30 @@ const CONTACTS = [
       "아프면 아프다고 말을 하라고!",
       "스오 녀석은 생각은 잠깐 그만하고 푹 쉬어!",
     ],
+     nextLines: [
+      [
+      "사쿠라?",
+      "역시 힘이 안나는 거 구만?",
+      "일이 끝나면 머슬 파워에 데려가야겠어",
+      "싫다고?",
+      "그럼 어쩔 수 없지.."
+      ],
+      [
+
+      ],
+  ]
   },
   {
     name: "스기시타 쿄타로", number: "010-0192-1103", avatar: "sj.jpg", color: "#457b9d",
     lines: [
       "...뭐야.",
     ],
+
+     nextLines: [
+      [
+      
+      ],
+  ]
   },
   {
     name: "츠바키노 타스쿠", number: "010-0182-1112", avatar: "kb.jpg", color: "#e5989b",
@@ -1583,6 +1636,21 @@ const CONTACTS = [
       "아프면 무리하지 말고 푹 쉬어야지!",
       "아플 땐 쉬는게 최고야",
     ],
+
+     nextLines: [
+      [
+      "사쿠라?",
+      "역시 아픈거구나!",
+      "안 이러는 아이가 이러고, 나 걱정되게...",
+      "미안해, 지금은 바로 찾으러 가기 어려워서",
+      "조금 뒤에 연락할게, 일단 푹 쉬어!"
+      ],
+
+      [
+
+      ],
+  ]
+
   },
 
   {
@@ -1592,6 +1660,22 @@ const CONTACTS = [
       "하하 .. 그러네 무슨 일 없을 수가 없네",
       "하지만 네 탓이 아니니까 너무 마음쓰지는 마."
     ],
+
+     nextLines: [
+      [
+      "사쿠라?",
+      "괜찮아?",
+      "이건 너희의 문제이기도 하지만",
+      "나의 문제이기도 해",
+      "좋은 생각이 나면 연락할게",
+      "분명 돌아오게 만들 수 있을거야.",
+      ],
+      
+      [
+
+      ],
+  ]
+
   },
 
 
@@ -1604,6 +1688,28 @@ const CONTACTS = [
       "또 그 안대 녀석에 대해 뭐라도 알고싶어?",
       "사쿠라가 원하면 바로 찾으러갈...",
     ],
+     nextLines: [
+      [
+      "사쿠라~",
+      "하하, 아니 사쿠라에게 전화가 오고, 별일이다 싶어서",
+      "아니아니, 딱히 널 욕하거나 그런 건 아니야",
+      "그래, 뭐 도움이라도 필요해?",
+      "필요하면 말해, 사쿠라의 말이라면 들어줄테니까"
+      ],
+      
+      [
+        "또 안대 녀석 생각하는거야?",
+        "그 녀석 생각할 수록 뒤가 구려보이던데",
+        "결국 이럴 줄 이야~",
+        "뭐? 그런 말 하지 말라고?",
+        "상처네~ 사쿠라 한테 그런 말을 듣고",
+        "아무튼 포기하는게 좋아."
+
+      ],
+      [
+
+      ],
+  ]
   },
   {
     name: "날씨", number: "131", avatar: "", color: "#5ac8fa",
@@ -2318,12 +2424,19 @@ function callContact(name, sub) {
   callPerson(CONTACTS.find(c => c.name === name) || { name, color: "#8e8e93", lines: [] }, sub);
 }
 let outgoing = null;
+const callCount = {};   // 사쿠라가 사람별로 몇 번 걸었는지
+function pickLines(first, more, n) {   // n: 몇 번째 통화인지 (1부터)
+  if (n <= 1 || !more || !more.length) return first;
+  return Array.isArray(more[0]) ? more[Math.min(n - 2, more.length - 1)] : more;
+}
 function callPerson(p, sub) {
+  callCount[p.name] = (callCount[p.name] || 0) + 1;
+  const lines = pickLines(p.lines, p.nextLines, callCount[p.name]);
   openCallScreen(p, sub || "휴대전화 연결 중...", false);
   outgoing = { p, result: "out" };
   if (p.weather) later(() => talk(makeWeather(), WEATHER.voice), 1.5);
   else if (p.unknown) later(() => { $("callSub").textContent = "연결할 수 없는 번호입니다"; later(() => endCall("통화 실패"), 1.8); }, 2);
-  else if (p.lines && p.lines.length) later(() => talk(p.lines), CONFIG.ringTime);
+  else if (lines && lines.length) later(() => talk(lines), CONFIG.ringTime);
   else later(() => {                                  // 상대가 안 받음
     if (outgoing) outgoing.result = "noans";
     endCall("응답 없음");
@@ -2380,6 +2493,7 @@ function armIgnoreEvents() {
     if (!ev) return;
     const fire = () => {
       if (!c.unread) return;                                   // 그 사이에 읽었으면 안 옴
+      if (callCount[c.name]) return;                           // 그 사이에 사쿠라가 먼저 전화했으면 안 옴
       if (current === "call" || current === "lock" || current === "pass") { setTimeout(fire, 10000); return; }
       const who = { name: c.name, avatar: c.avatar, color: c.color, hideLetter: c.hideLetter, lines: ev.lines, hangupLine: ev.hangupLine };
       ringIncoming(who, "LINE 음성통화", (ok, sec) => {
@@ -2484,7 +2598,7 @@ function triggerCallEvent(kind, idx) {
       drawList(kind);
       if (ev.redial && userEnded && redials < (ev.redialTimes || 3)) {   // 끊으면 다시 걸어옴
         redials++;
-        setTimeout(() => ring(ev.redialLines || ev.lines), ((ev.redialDelay || 2) + 0.8) * 1000);
+        setTimeout(() => ring(pickLines(ev.lines, ev.redialLines, redials + 1)), ((ev.redialDelay || 2) + 0.8) * 1000);
       }
       if (callBack === "chat" && curKind === kind && currentChat === idx) return () => openChat(kind, idx);
     });
