@@ -309,6 +309,20 @@ body.notime .msg .tm,body.notime #chatList .t,body.notime #smsList .t{display:no
 .banner .top b{font-size:15px}.banner .top span{font-size:13px;color:rgba(0,0,0,.45)}
 .banner p{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
+/* ---------- 링크(기사) 카드 ---------- */
+.bub.lnk{padding:0;overflow:hidden;width:230px;background:#fff!important;cursor:pointer}
+.lnkh{height:96px;background:linear-gradient(135deg,#ffe0b2,#ffccbc);display:flex;align-items:center;justify-content:center;font-size:40px;letter-spacing:4px}
+.lnkb{padding:10px 12px 12px}
+.lnkb b{display:block;font-size:14px;color:#000;line-height:1.35}
+.lnkb small{display:block;font-size:12px;color:#8e8e93;margin-top:3px;line-height:1.4}
+.lnkb span{display:block;font-size:11px;color:#aeaeb2;margin-top:6px}
+.art{padding:0 2px 30px}
+.artsite{font-size:13px;font-weight:700;color:#d93025}
+.art h1{font-size:24px;line-height:1.35;margin:6px 0 6px;color:#111}
+.artdate{font-size:12px;color:#8e8e93}
+.arthero{height:150px;border-radius:12px;background:linear-gradient(135deg,#ffe0b2,#ffccbc);display:flex;align-items:center;justify-content:center;font-size:56px;letter-spacing:8px;margin:14px 0}
+.artbody p{font-size:calc(16px * var(--ts, 1));line-height:1.75;color:#222;margin-bottom:12px}
+
 /* ---------- 게임 초대 카드 ---------- */
 .bub.inv{padding:0;overflow:hidden;width:220px;background:#fff!important}
 .invh{height:76px;background:linear-gradient(135deg,#ffb347,#ff5e7e);display:flex;align-items:center;justify-content:center;font-size:36px}
@@ -1086,7 +1100,7 @@ const CHATS = [
       { from: "키류 미츠키",     text: "맞아~", time: "오후 8:36" },
       { from: "스오 하야토",     text: "그런거야?", time: "오후 8:39" },   
       { from: "키류 미츠키",     text: "하지만 보후우린 애들, 다들 제대로 스킨 같은 거 쓰고 있는지 난 걱정이야..", time: "오후 8:36" },
-      { from: "니레이 아키히코",     text: "어, 스킨은 역시 쓰는 게 좋은 건가요...?", time: "오후 8:45" },
+      { from: "니레이 아키히코",     text: "어라 스킨은 역시 쓰는 게 좋은 건가요...?", time: "오후 8:45" },
       { from: "키류 미츠키",     text: "응, 피부가 건조하면 괴로우니까", time: "오후 8:36" },
       { from: "키류 미츠키",     text: "사쿠라 쨩도 목욕하고 나서 스킨 꼭 바르는 거야?", time: "오후 8:36" },
       { from: "me",   text: "안 발라", time: "오전 8:45" },
@@ -1096,7 +1110,23 @@ const CHATS = [
       { from: "스오 하야토",     text: "사쿠라군...", time: "오후 8:39" },   
        { from: "스오 하야토",     text: "화장을 안 하는 사람도 스킨은 써", time: "오후 8:39" },   
       { from: "키류 미츠키",     text: "사쿠라 쨩... 무서운 아이", time: "오후 8:36" },
-     
+       
+      { date: "5월 22일 수요일" },
+      { from: "츠게우라 타이가",     text: "사쿠라 군~", time: "오후 9:40" },
+      { from: "츠게우라 타이가",     text: "몸 상태는 어때", time: "오후 9:40" },  
+      { from: "츠게우라 타이가",     text: "좀 나아졌어?", time: "오후 9:40" }, 
+      { from: "니레이 아키히코",     text: "걱정돼요...", time: "오후 8:45" },
+      { from: "니레이 아키히코",     text: "읽음 표시가 안 뜨네요...", time: "오후 8:45" },
+      { from: "스오 하야토",     text: "걱정되네", time: "오후 8:39" },
+      { from: "스오 하야토",     text: "그래도 괜찮을 거야. 분명 금방 나아서 다시 학교에서 만날 수 있을 거야", time: "오후 8:39" },
+      { from: "스오 하야토",     text: "기대하고 있을게, 사쿠라 군", time: "오후 8:39" },         
+      { from: "키류 미츠키",     text: "아직 자고 있는 걸까~", time: "오후 8:36" },
+      { from: "키류 미츠키",     text: "사쿠라쨩이 없으면 재미없단 말이야~", time: "오후 8:36" },
+      { from: "츠게우라 타이가",     text: "맞아 맞아 사쿠라 군이 없으면 시작할 수 있는 일도 시작할 수 없다니까!", time: "오후 9:40" }, 
+      { from: "츠게우라 타이가",     text: "기다리고 있을 테니까, 사쿠라 군!", time: "오후 9:40" }, 
+      { from: "니레이 아키히코",     text: "사쿠라 씨, 다들 기다리고 있어요", time: "오후 8:45" },
+      { from: "니레이 아키히코",     text: "몸조리 잘하세요...", time: "오후 8:45" },
+
       { date: "7월 14일 일요일" },
        { from: "니레이 아키히코",     text: "정말 대단했어요... 사쿠라 씨 일행의 활약이요...", time: "오후 8:35" },
         { from: "스오 하야토",     text: "정말 그렇지", time: "오후 8:39" },  
@@ -1108,18 +1138,64 @@ const CHATS = [
   { from: "스오 하야토",     text: "그러니까 사쿠라 군이 마음껏 기분 좋게 이길 수 있도록", time: "오후 8:39" },
    { from: "스오 하야토",     text: "나도 제대로 서포트할게", time: "오후 8:39" },     
          { from: "니레이 아키히코",     text: "저도, 제가 할 수 있는 일이라면 뭐든지 할게요....!", time: "오후 8:35" },
-      { date: "10월 24일 금요일" },
+     
+
+
+         { date: "7월 15일 월요일" },
+            { from: "스오 하야토",     text: "롯포 이치자분들과 함께 했던 레이싱 게임, 재미있었지", time: "오후 8:39" }, 
+               { from: "스오 하야토",     text: "사쿠라군의 좀처럼 볼 수 없는 표정도 볼 수 있었고", time: "오후 8:39" },       
+          { from: "니레이 아키히코",     text: "자, 잠깐만요...! 스오 씨", time: "오후 12:20" },
+           { from: "니레이 아키히코",     text: "그 이야기는....", time: "오후 12:20" },
+         { from: "me",   text: "아니야", time: "오전 10:39" },
+         { from: "me",   text: "그냥 처음이었을 뿐이야", time: "오전 10:39" },
+            { from: "스오 하야토",     text: "그럼 여러 가지 게임을 접해 보는 것도 좋지 않을까?", time: "오후 8:39" },
+               { from: "스오 하야토",     text: "다음에 다 같이 게임센터에 가 볼까?", time: "오후 8:39" },        
+          { from: "니레이 아키히코",     text: "좋네요!", time: "오후 12:20" },
+           { from: "니레이 아키히코",     text: "반 친구들도 초대해서 같이 가요!", time: "오후 12:20" },
+              { from: "스오 하야토",     text: "실제로 핸들을 잡고 플레이할 수 있는 자동차 레이싱 게임 같은 것도 있어", time: "오후 8:39" },   
+                 { from: "스오 하야토",     text: "어때, 사쿠라군?", time: "오후 8:39" },     
+          { from: "me",   text: "다음엔 절대로 안 져", time: "오전 10:39" },
+           { from: "니레이 아키히코",     text: "오오! 의욕이 넘치시네요!", time: "오후 12:20" },
+            { from: "니레이 아키히코",     text: "다른 분들께도 미리 말해 둘게요!", time: "오후 12:20" },
+               { from: "스오 하야토",     text: "또 사쿠라군의 필사적인 표정을 볼 수 있다고 생각하니 기대되네", time: "오후 8:39" },    
+           { from: "me",   text: "야!", time: "오전 10:39" },
+
+         
+
+
+         { date: "10월 21일 수요일" },
+          { from: "니레이 아키히코",     text: "스오 씨, 오늘 학교 안 나오시는건가요?", time: "오후 12:20" },
+           { from: "츠게우라 타이가",     text: "병문안이라도 가야하나!?", time: "오후 9:40" },
+            { from: "니레이 아키히코",     text: "말씀도 없이 빠지셔서 걱정되네요...", time: "오후 12:20" },
+
+
+      { date: "10월 22일 목요일" },
+      { from: "키류 미츠키",     text: "스오쨩 오늘도 결석~?", time: "오후 12:21" },
+      { from: "키류 미츠키",     text: "연락도 안 보고... 다들 걱정하고 있는데 말야", time: "오후 12:21" },
+      { from: "니레이 아키히코",     text: "맞아요, 사쿠라 씨도, 다른 분들도 걱정하고 있다고요!", time: "오후 12:20" },
+
+      { date: "10월 23일 금요일" },
       { from: "니레이 아키히코",     text: "다들 조심히 들어가셨나요?", time: "오후 12:20" },
       { from: "키류 미츠키",     text: "응~ 니레도 늦게까지 찾아보진 마", time: "오후 12:21" },
 
-
-      { date: "10월 25일 토요일" },
+      { date: "10월 24일 토요일" },
       { from: "니레이 아키히코",     text: "저랑 키류씨가 동쪽 부분 다 찾아봤어요", time: "오후 12:20" },
-      { from: "니레이 아키히코",     text: "수확 있으신 분 계신가요...?", time: "오후 12:20" },
+      { from: "니레이 아키히코",     text: "뭐라도 찾으신 분 계신가요...?", time: "오후 12:20" },
       { from: "키류 미츠키",     text: "우린 아무것도 없네", time: "오후 12:21" },
       { from: "me",   text: "없어", time: "오전 10:30" },
       { from: "니레이 아키히코",     text: "역시 그런가요...", time: "오후 12:25" },
       { from: "츠게우라 타이가",     text: "여기도 영 별로네", time: "오후 9:40" }, 
+
+
+
+      { date: "10월 25일 일요일" },
+      { from: "키류 미츠키",     text: "니레쨩, 조심히 들어갔지?", time: "오후 12:21" },
+      { from: "키류 미츠키",     text: "상처가 크진 않아서 다행이야", time: "오후 12:21" },
+      { from: "키류 미츠키",     text: "푹 쉬고 내일 보자", time: "오후 12:21" },
+      { from: "츠게우라 타이가",     text: "그래그래", time: "오후 9:40" },
+      { from: "츠게우라 타이가",     text: "푹 쉬는게 회복에 제일 좋아!", time: "오후 9:40" },  
+      { from: "츠게우라 타이가",     text: "아무 생각 말고 푹 쉬어!", time: "오후 9:40" }, 
+        { from: "니레이 아키히코",     text: "다들 감사해요!", time: "오후 12:20" },
 
       { date: "오늘" },
       { from: "니레이 아키히코",     text: "사쿠라씨 괜찮으신가요?", time: "오후 12:20" },
@@ -1186,6 +1262,31 @@ const CHATS = [
     ],
   },
   
+  {
+    // ▶ 기사(링크) 공유 메시지: { from: "them", link: { site, title, desc, icon, body: [문단들] } }
+    //   카드를 누르면 Safari에서 기사가 열려요
+    name: "카지 렌", avatar: "kj.jpg", color: "#495057", unread: 0,
+    msgs: [
+      { date: "5월 1일 월요일" },
+      { from: "them", link: {
+          site: "뉴스",
+          url: "https://news.makochi.kr/science/0917",
+          icon: "🐱🍣",
+          title: "고양이의 뇌, 크기는 초밥 한 점 정도?",
+          desc: "무게 약 30g… 작지만 똑똑한 고양이 뇌의 비밀",
+          body: [
+            "늘 우리를 빤히 바라보는 고양이. 그 작은 머릿속에는 어떤 뇌가 들어 있을까?",
+            "고양이의 뇌는 무게 약 25~30g, 길이는 5cm 남짓으로 초밥 한 점과 비슷한 크기다. 몸무게에 비하면 아주 작은 편이다.",
+            "하지만 크기만 보고 얕보면 안 된다. 고양이의 뇌는 주름이 많고 신경세포가 촘촘해, 사냥감을 쫓거나 높은 곳에 뛰어오르는 순간적인 판단에 뛰어나다.",
+            "전문가들은 \"고양이가 사람을 무시하는 것처럼 보여도, 사실은 다 듣고 다 기억하고 있다\"며 웃었다.",
+          ],
+        } },
+      { from: "them", text: "초밥 ㅋ" },
+      { from: "me",   text: "뭐", time: "오후 10:12" },
+      { from: "me",   text: "어쩌라고", time: "오후 10:12" },
+
+    ],
+  },
   {
     // ▶ 게임 초대 메시지: { from: "them", invite: { game: "게임 이름", icon: "🎮" } }
     name: "키류 미츠키", avatar: "kw.jpg", color: "#e76f51", unread: 4,
@@ -1380,6 +1481,7 @@ const FRIENDS = [
   { name: "스기시타 쿄타로", avatar: "sj.jpg",  color: "#457b9d", status: "" },
   { name: "츠바키노 타스쿠", avatar: "kb.jpg",  color: "#e5989b", status: "" },
   { name: "우메미야 하지메", avatar: "um.jpg",        color: "#2a9d8f", status: "" },
+  { name: "카지 렌",         avatar: "kj.jpg",  color: "#495057", status: "" },
   { name: "엔도 야마토",     avatar: "",        color: "#000", hideLetter: true, status: "" },
 ];
 
@@ -1761,6 +1863,15 @@ const CONTACTS = [
 
 
 
+  {
+    name: "카지 렌", number: "010-0152-0912", avatar: "kj.jpg", color: "#495057",
+    lines: [
+      
+    ],
+  
+  
+
+  },
   {
     name: "엔도 야마토", number: "010-0187-1130", avatar: "", color: "#000", hideLetter: true,
     lines: [
@@ -2269,7 +2380,7 @@ function drawList(kind) {
   const K = KINDS[kind];
   $(K.list).innerHTML = K.data.map((c, i) => {
     const lm = c.msgs.filter(m => !m.date).pop() || {};
-    const last = { time: lm.time, text: lm.image ? "사진" : lm.invite ? `[게임 초대] ${lm.invite.game}` : lm.location ? "위치 정보" : lm.call ? (lm.call === "voice" ? "음성통화" : "영상통화") : (lm.text || "") };
+    const last = { time: lm.time, text: lm.image ? "사진" : lm.invite ? `[게임 초대] ${lm.invite.game}` : lm.link ? lm.link.title : lm.location ? "위치 정보" : lm.call ? (lm.call === "voice" ? "음성통화" : "영상통화") : (lm.text || "") };
     const badge = c.unread ? `<span class="badge">${c.unread}</span>` : "";
     const cnt = c.group ? `<span class="cnt">${Object.keys(c.members).length + 1}</span>` : "";
     return `<div class="row" onclick="openChat('${kind}',${i})">${avatarHTML(c)}<div class="mid"><b>${c.name}${cnt}</b><p>${last.text}</p></div><div class="side"><span class="t">${last.time || ""}</span>${badge}</div></div>`;
@@ -2301,6 +2412,14 @@ function bubble(c, m, unread) {
       img.onclick = () => { $("viewerImg").src = m.image; $("viewer").style.display = "flex"; };
       img.onerror = () => { bub.innerHTML = `<span class="broken">사진을 못 찾았어요<br>(${m.image} 파일 이름 확인)</span>`; };
       bub.append(img);
+    } else if (m.link) {
+      bub.classList.add("lnk");
+      bub.innerHTML = `<div class="lnkh"></div><div class="lnkb"><b></b><small></small><span></span></div>`;
+      bub.querySelector(".lnkh").textContent = m.link.icon || "📰";
+      bub.querySelector("b").textContent = m.link.title;
+      bub.querySelector("small").textContent = m.link.desc || "";
+      bub.querySelector("span").textContent = m.link.site || "";
+      bub.onclick = () => openArticle(m.link);
     } else if (m.invite) {
       bub.classList.add("inv");
       bub.innerHTML = `<div class="invh"></div><div class="invb"><b></b><small></small><span class="invbtn">게임 시작</span></div>`;
@@ -2758,6 +2877,17 @@ function sfSearch(i) {
     <div class="sftabs"><span>AI 모드</span><span class="on">전체</span><span>이미지</span><span>동영상</span><span>뉴스</span></div>
     ${dym}${res.map(r => `<div class="sres"><div class="gsite"><span class="gfav">${esc((r.site || "?")[0])}</span><div><b>${esc(r.site || "")}</b><small>${esc(r.url || "https://www.makochi.kr")}</small></div></div><div class="tt">${esc(r.title)}</div><div class="ds">${esc(r.desc || "")}</div></div>`).join("")}`;
   $("sfPage").scrollTop = 0;
+}
+function openArticle(a) {
+  show("safari");
+  $("sfAddr").textContent = (a.url || "news.makochi.kr").replace(/^https?:\/\//, "").split("/")[0];
+  $("sfPage").innerHTML = `<div class="art"><div class="artsite"></div><h1></h1><div class="artdate">기사 · 공유된 링크</div><div class="arthero"></div><div class="artbody"></div></div>`;
+  const p = $("sfPage");
+  p.querySelector(".artsite").textContent = a.site || "";
+  p.querySelector("h1").textContent = a.title;
+  p.querySelector(".arthero").textContent = a.icon || "📰";
+  (a.body || [a.desc || ""]).forEach(t => { const el = document.createElement("p"); el.textContent = t; p.querySelector(".artbody").append(el); });
+  p.scrollTop = 0;
 }
 function sfHistory() {
   $("sfAddr").textContent = "방문 기록";
