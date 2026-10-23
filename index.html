@@ -1321,7 +1321,7 @@ const CHATS = [
         "오늘은 푹 쉬세요. 내일 꼭 학교에서 봬요!",
       ],
       // ▶ 통화 도중에 끊으면 바로 오는 LINE
-      hangupLine: ["사쿠라 씨?! 갑자기 끊으시면 어떡해요ㅠㅠ", "무슨 일 있으신 건 아니죠...?"],
+      hangupLine: ["사쿠라 씨?! 갑자기 끊으시면 어떡해요ㅠㅠ"],
     },
     replies: [
       { keywords: ["싫어", "안 가", "귀찮"], answer: ["사쿠라 씨?! 그럼 안돼요"] },
@@ -1625,8 +1625,8 @@ const SAFARI = {
     { q: "데이트 코스 추천", date: "7월 21일",
       results: [
         { site: "여행 블로그", url: "https://trip.makochi.kr", title: "여름 데이트 코스 BEST 7 (실패 없는 코스)", desc: "낮에는 카페나 수족관, 해 질 녘엔 강가 산책. 더운 날엔 실내 위주로 짜는 게 좋아요." },
-        { site: "마코치 동네 정보", url: "https://local.makochi.kr", title: "마코치 상점가 데이트 코스", desc: "상점가 붕어빵 → 오래된 찻집 → 해 질 녘 강변 산책. 동네 사람들이 다 아는 사이라 조금 부끄러울 수도 있어요." },
-        { site: "Q&A 커뮤니티", url: "https://qna.makochi.kr", title: "차 좋아하는 사람이랑 데이트하면 어디 가요?", desc: "상대가 차를 엄청 좋아하는데 저는 하나도 몰라요. 그냥 찻집 가도 괜찮을까요?" },
+        { site: "마코치 동네 정보", url: "https://local.makochi.kr", title: "상점가 데이트 코스", desc: "식사 → 영화 → 해 질 녘 강변 산책. 동네 사람들이 다 아는 사이라 조금 부끄러울 수도 있어요." },
+        { site: "Q&A 커뮤니티", url: "https://qna.makochi.kr", title: "차 좋아하는 사람이랑 데이트하면 어디 가요?", desc: "그냥 카페가도 괜찮을까요?" },
       ] },
     { q: "데이트 뭐 해야 함", date: "7월 21일",
       results: [
@@ -1638,7 +1638,7 @@ const SAFARI = {
       results: [
         { site: "국어사전", url: "https://dict.makochi.kr", title: "데이트 - 국어사전", desc: "[명사] 서로 좋아하는 사람끼리 교제를 위해 만나는 일. 또는 그렇게 만나기로 한 약속." },
         { site: "연애 칼럼", url: "https://column.makochi.kr", title: "처음 데이트 신청을 받았을 때 대처법", desc: "당황하지 말고 솔직하게! 좋으면 좋다고, 생각할 시간이 필요하면 필요하다고 말해도 괜찮아요." },
-        { site: "커뮤니티", url: "https://community.makochi.kr", title: "데이트 신청 받았는데 이게 데이트인지 모르겠음", desc: "'오늘 데이트 하지 않을래?'라고 했는데 장난인지 진심인지 모르겠어요. 그냥 놀자는 건가요?" },
+        { site: "커뮤니티", url: "https://community.makochi.kr", title: "데이트 신청 받았는데 이게 데이트인지 모르겠음", desc: "이렇게 왔는데 장난인지 진심인지 모르겠다. 그냥 놀자는 건가ㅋ?" },
       ] },
     { q: "데잍", date: "7월 20일", didYouMean: "데이트" },
     { q: "뎉", date: "7월 20일", didYouMean: "데이트" },
@@ -1719,11 +1719,14 @@ const CALLS = [
 /* ----- 연락처 -----
    전화를 걸면 lines 대사로 통화해요. lines를 [] 로 비우면 "응답이 없습니다"
    weather: true 인 연락처는 걸 때마다 랜덤 날씨를 알려주고 알아서 끊어요
-   키패드에서 number를 그대로 누르면 그 사람에게 걸려요                */
+   키패드에서 number를 그대로 누르면 그 사람에게 걸려요
+   hangupLine: 통화 도중에 끊으면 오는 메시지
+               [ [첫 번째로 끊었을 때], [두 번째로 끊었을 때] ] 처럼 쓰면 끊을 때마다 달라져요 (마지막 것이 반복)
+   hangupApp:  "line"(기본) 또는 "sms" (메시지 앱으로 오게)                                */
 const CONTACTS = [
   {
     name: "니레이 아키히코", number: "010-0163-0921", avatar: "ni.jpg", color: "#f4a261",
-    hangupLine: ["사쿠라 씨?! 갑자기 끊으시면 어떡해요ㅠㅠ", "무슨 일 있으신 건 아니죠...? 답장만이라도 주세요"],   // 통화 도중 끊으면 오는 LINE
+    hangupLine: ["사쿠라 씨?! 갑자기 끊으시면 어떡해요ㅠㅠ"],   // 통화 도중 끊으면 오는 LINE
     lines: [
       "사쿠라 씨?! 전화 주신 거예요?!",
       "괜찮으세요? 오늘 학교도 안 나오시고",
@@ -1761,6 +1764,10 @@ const CONTACTS = [
   },
   {
     name: "키류 미츠키", number: "010-0165-0819", avatar: "kw.jpg", color: "#e76f51",
+    hangupLine: [
+      ["에~ 사쿠라 쨩 왜 끊어~", "뭐 괜찮아~ 쉬고 싶으면 쉬어"],
+      ["또 끊었다~", "사쿠라 쨩 혹시 전화 거는 연습 중이야?"],
+    ],
     lines: [
       "사쿠라~? 웬일이야, 먼저 전화를 다 하고~",
       "학교 안 와서 다들 걱정했어",
@@ -1782,6 +1789,10 @@ const CONTACTS = [
   },
   {
     name: "츠게우라 타이가", number: "010-0181-0515", avatar: "cg.jpg", color: "#457b9d",
+    hangupLine: [
+      ["야 사쿠라!! 갑자기 끊으면 어떡하냐!", "...뭐!","무슨일인진 모르겠지만 힘들면 다시 연락해라!"],
+      ["또 끊었냐!!", "알았다! 할 말 생기면 그때 걸어!"],
+    ],
     lines: [
       "사쿠라?! 너 괜찮은 거냐!",
       "아프면 아프다고 말을 하라고!",
@@ -1814,6 +1825,10 @@ const CONTACTS = [
   },
   {
     name: "츠바키노 타스쿠", number: "010-0182-1112", avatar: "kb.jpg", color: "#e5989b",
+    hangupLine: [
+      ["사쿠라~! 말하다 말고 끊으면 어떡해!", "괜찮은 거지? 괜찮아지면 나중에 꼭 다시 얘기하자"],
+      ["사쿠라... 진짜 괜찮은 거 맞아?", "힘들면 그냥 힘들어다고 말해도 돼"],
+    ],
     lines: [
       "어머 사쿠라~! 목소리가 왜 그래?",
       "아프면 무리하지 말고 푹 쉬어야지!",
@@ -1838,6 +1853,10 @@ const CONTACTS = [
 
   {
     name: "우메미야 하지메", number: "010-0188-0201", avatar: "um.jpg", color: "#2a9d8f",
+    hangupLine: [
+      ["사쿠라, 괜찮아. 끊어도 돼.", "그래도 몸은 챙기도록 해","안 되면 도와주러 갈테니까!"],
+      ["사쿠라?","또 끊었네!","무슨 일인거야?"]
+    ],
     lines: [
       "사쿠라? 무슨 일 있어?",
       "하하 .. 그러네 무슨 일 없을 수가 없네",
@@ -1874,6 +1893,10 @@ const CONTACTS = [
   },
   {
     name: "엔도 야마토", number: "010-0187-1130", avatar: "", color: "#000", hideLetter: true,
+    hangupLine: [
+      ["어라~ 끊어버렸네", "그래도 사쿠라 목소리 들어서 좋았어~","자주 연락해줘?"],
+      ["또 끊었어?", "나랑 뭘 하고 싶은거야~","조금은 솔직해져도 되는데 말야"],
+    ],
     lines: [
       "사쿠라? 사쿠라 지금 나한테 전화한거야?",
       "아 정말~ 지금 완전 한가하지",
@@ -1913,6 +1936,8 @@ const CONTACTS = [
  
   {
     name: "02-3392-7781", number: "02-3392-7781", color: "#a1a1a6", hidden: true,
+    hangupApp: "sms",
+    hangupLine: ["[Web발신] 통화가 중단되었습니다. 경품 수령을 위해 다시 연락 부탁드립니다🎁"],
     lines: [
       "축하드립니다! 경품 당첨 확인 전화입니다.",
       "본인 확인을 위해 성함과 생년월일을 말씀해 주시겠어요?",
@@ -2570,6 +2595,7 @@ function talk(lines, voice) {
     } else later(next, CONFIG.callLineDelay / SET.speed);
   })();
 }
+const hangupCount = {};   // 사람별로 통화 도중 몇 번 끊었는지
 function endCall(label) {
   clearCallTimers();
   if (canSpeak) speechSynthesis.cancel();
@@ -2578,8 +2604,12 @@ function endCall(label) {
   if (outgoing) { addRecent(outgoing.p.name, outgoing.result || "out"); outgoing = null; }
   $("callLine").textContent = "";
   const cc = curCall; curCall = null;
-  if (cc && cc.connected && !cc.done && cc.p.hangupLine)        // 통화 도중에 끊으면 LINE이 와요
-    setTimeout(() => deliverLine(cc.p.hangupChat || cc.p.name, cc.p.hangupLine), 1200);
+  if (cc && cc.connected && !cc.done && cc.p.hangupLine) {      // 통화 도중에 끊으면 메시지가 와요
+    const n = hangupCount[cc.p.name] = (hangupCount[cc.p.name] || 0) + 1;
+    const hl = cc.p.hangupLine;
+    const msg = Array.isArray(hl[0]) ? hl[Math.min(n - 1, hl.length - 1)] : hl;   // [ [첫 번째], [두 번째] ] 도 가능
+    if (msg && msg.length) setTimeout(() => deliverMsg(cc.p.hangupApp || "line", cc.p.hangupChat || cc.p.name, msg), 1200);
+  }
   let nav = null;
   if (incoming) {                      // 걸려온 전화가 끝났을 때 할 일 (기록 남기기 등)
     const it = incoming; incoming = null;
