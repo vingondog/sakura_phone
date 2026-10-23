@@ -83,8 +83,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Apple SD Gothic 
 .dock .app > span{display:none}
 .badge{background:#ff3b30;color:#fff;font-size:12px;font-weight:700;min-width:20px;height:20px;border-radius:10px;padding:0 6px;display:inline-flex;align-items:center;justify-content:center;text-shadow:none}
 .app .ic .badge{position:absolute;top:-7px;right:-7px;font-size:13px;min-width:24px;height:24px;border-radius:12px;z-index:2}
-.screen.active.zoom{animation:zoomIn .38s cubic-bezier(.2,.85,.25,1)}
-@keyframes zoomIn{from{transform:scale(.14);opacity:.85;border-radius:60px}to{transform:none;opacity:1;border-radius:0}}
+.screen.active.zoom{animation:zoomIn .32s cubic-bezier(.2,.85,.25,1);will-change:transform;backface-visibility:hidden;z-index:10}
+@keyframes zoomIn{from{transform:scale(.14);opacity:.6}to{transform:none;opacity:1}}
+/* 앱이 커지는 동안엔 뒤쪽 홈 화면의 흐림 효과를 잠깐 꺼서 가볍게 */
+.display.zooming #home .dock,.display.zooming #home .search{backdrop-filter:none;-webkit-backdrop-filter:none;background:rgba(255,255,255,.3)}
+.display.zooming #home .widget,.display.zooming #home .app .ic{box-shadow:none}
 .msg.new{animation:msgIn .25s ease}
 @keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .tabs svg{width:26px;height:26px;fill:currentColor}
@@ -114,6 +117,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Apple SD Gothic 
 .memocard .row{flex-direction:column;align-items:flex-start;gap:2px}
 .memocard .row p{font-size:14px;color:#8e8e93}
 #memoBody{flex:1;overflow-y:auto;padding:4px 20px;background:#fff;font-size:17px;line-height:1.7;white-space:pre-wrap}
+.mlock svg{width:11px;height:14px;fill:#E0A800;margin-right:6px;vertical-align:-1px}
+.mlocked{display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:120px;gap:8px;white-space:normal}
+.mbiglock svg{width:34px;height:44px;fill:#E0A800;margin-bottom:6px}
+.mlocked b{font-size:19px}.mlocked p{font-size:14px;color:#8e8e93;line-height:1.5}
+.mview{margin-top:10px;background:none;border:none;color:#E0A800;font-size:17px;font-weight:600;cursor:pointer}
+.mdlg{position:absolute;inset:0;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;z-index:50;white-space:normal}
+.mbox{width:270px;background:rgba(242,242,247,.97);border-radius:14px;text-align:center;padding:18px 16px 0;overflow:hidden}
+.mbox b{font-size:17px}.mbox p{font-size:13px;line-height:1.4;margin:4px 0 12px;color:#333}
+.mbox input{width:100%;padding:8px 10px;border:1px solid #c7c7cc;border-radius:7px;font-size:15px;outline:none;background:#fff;user-select:text}
+.mhint{font-size:12px;color:#ff3b30;min-height:18px;margin:6px 0 8px;line-height:1.4}
+.mbtns2{display:flex;border-top:1px solid #d1d1d6;margin:0 -16px}
+.mbtns2 button{flex:1;background:none;border:none;padding:11px 0;font-size:16px;color:#E0A800;cursor:pointer}
+.mbtns2 button + button{border-left:1px solid #d1d1d6}
+.mbtns2 .ok{font-weight:600}
+.mbox.shake{animation:shake .4s}
+#memoBody.mfade{animation:msgIn .6s ease}
 #memoBody h3{font-size:26px;margin-bottom:6px}
 #memoBody small{color:#8e8e93;display:block;text-align:center;margin-bottom:14px}
 
@@ -331,6 +350,52 @@ body.notime .msg .tm,body.notime #chatList .t,body.notime #smsList .t{display:no
 .invb small{display:block;font-size:12px;color:#8e8e93;margin:2px 0 9px;line-height:1.4}
 .invbtn{display:block;text-align:center;background:#06C755;color:#fff;border-radius:8px;padding:7px;font-size:13px;font-weight:600;cursor:pointer}
 
+/* ---------- 사진 앱 ---------- */
+.phtab{display:none;flex:1;flex-direction:column;overflow:hidden}.phtab.on{display:flex}
+.phback{align-self:flex-start;margin:58px 0 0 16px;font-size:17px}
+.phhead{display:flex;justify-content:space-between;align-items:flex-end;padding:6px 16px 10px}
+.phbig{font-size:32px;font-weight:700}
+.phhead small{font-size:13px;color:#8e8e93}
+.phsel{background:#e5e5ea;border:none;border-radius:14px;padding:5px 12px;font-size:14px;font-weight:600;color:#007AFF;cursor:pointer}
+.phgrid{flex:1;overflow-y:auto}
+.phgi{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.pht{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:38px;position:relative;cursor:pointer;overflow:hidden;contain:layout paint}
+.pht img,.phcover img,.pvimg img{width:100%;height:100%;object-fit:cover}
+.pht:active{filter:brightness(.85)}
+.phfav{position:absolute;left:5px;bottom:3px;color:#fff;font-style:normal;font-size:13px;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.phleft{position:absolute;left:5px;bottom:3px;color:#fff;font-style:normal;font-size:11px;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.phscroll{flex:1;overflow-y:auto;padding:0 16px 16px}
+.phsec{font-size:21px;font-weight:700;margin:10px 0 10px}
+.phalbs{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px;margin-bottom:24px}
+.phalb{cursor:pointer}
+.phcover{aspect-ratio:1;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:52px;overflow:hidden}
+.phcover.empty{background:#e5e5ea}
+.phalb b{display:block;font-size:15px;margin-top:6px}.phalb small{font-size:14px;color:#8e8e93}
+.phutil{display:flex;align-items:center;gap:12px;padding:12px 4px;border-top:1px solid #eee;cursor:pointer}
+.phutil span{font-size:22px}.phutil b{flex:1;font-size:16px;font-weight:400;color:#007AFF}
+.phutil small svg{width:12px;height:15px;fill:#8e8e93}.phutil small{color:#8e8e93}
+.phnote{font-size:13px;color:#8e8e93;text-align:center;padding:4px 10px 12px;line-height:1.4}
+.phlockd{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding-top:110px}
+.phlockd .mbiglock svg{fill:#007AFF}
+.phlockd b{font-size:19px}.phlockd p{font-size:14px;color:#8e8e93}
+.phunlock{margin-top:10px;background:none;border:none;color:#007AFF;font-size:17px;font-weight:600;cursor:pointer}
+.phdlg .mbtns2 button{color:#007AFF}
+.phdlg{z-index:60}
+#photos .phtabs button.on{color:#007AFF}
+#phAlbum .bar{min-height:96px}
+.phview{position:absolute;inset:0;z-index:85;background:#fff;display:none;flex-direction:column;color:#000}
+.phview.show{display:flex}
+.pvbar{display:flex;justify-content:space-between;align-items:center;padding:56px 14px 10px}
+.pvbar button{background:none;border:none;color:#007AFF;font-size:30px;line-height:1;cursor:pointer;width:40px;text-align:left}
+.pvbar div{text-align:center}.pvbar b{display:block;font-size:16px}.pvbar small{font-size:12px;color:#8e8e93}
+.pvbar span{width:40px}
+.pvimg{flex:1;display:flex;align-items:center;justify-content:center;font-size:120px;touch-action:pan-y;user-select:none;overflow:hidden}
+.pvcap{display:none;padding:14px 20px;font-size:calc(15px * var(--ts, 1));line-height:1.5;color:#3a3a3c;border-top:1px solid #eee;background:#f9f9f9}
+.pvcap.show{display:block}
+.pvtools{display:flex;justify-content:space-between;padding:12px 26px 26px;color:#007AFF}
+.pvtools span{width:28px;height:28px;cursor:pointer;display:flex}
+.pvtools svg{width:28px;height:28px}
+
 /* ---------- 시계 앱 (다크) ---------- */
 #clockapp{background:#000;color:#fff}
 .ckbar{display:flex;justify-content:space-between;align-items:center;padding:60px 20px 4px;color:#FF9500;font-size:17px}
@@ -466,7 +531,7 @@ body.notime .msg .tm,body.notime #chatList .t,body.notime #smsList .t{display:no
       <div class="app" onclick="show('phone')"><div class="ic phone-ic" data-icon="phone"></div><span>전화</span></div>
       <div class="app" onclick="show('sms')"><div class="ic sms-ic" data-icon="sms"></div><span>메시지</span></div>
       <div class="app" onclick="show('line')"><div class="ic line-ic" data-icon="line"></div><span>LINE</span></div>
-      <div class="app" onclick="toast('잠겨 있는 앱이에요')"><div class="ic" data-icon="photos"></div><span>사진</span></div>
+      <div class="app" onclick="show('photos')"><div class="ic" data-icon="photos"></div><span>사진</span></div>
       <div class="app" onclick="show('safari')"><div class="ic" data-icon="safari"></div><span>Safari</span></div>
       <div class="app" onclick="show('settings')"><div class="ic" data-icon="settings"></div><span>설정</span></div>
       <div class="app" onclick="show('clockapp')"><div class="ic" data-icon="clock"></div><span>시계</span></div>
@@ -614,6 +679,37 @@ body.notime .msg .tm,body.notime #chatList .t,body.notime #smsList .t{display:no
     </div>
     <div class="homebar" onclick="show('home')"></div>
   </section>
+
+  <!-- 사진 -->
+  <section class="screen appscr" id="photos" data-dark>
+    <div class="phtab on" id="phLib">
+      <button class="back phback" onclick="show('home')">‹ 홈</button>
+      <div class="phhead"><div><div class="phbig">보관함</div><small id="phCount"></small></div><button class="phsel" onclick="toast('선택할 수 없어요')">선택</button></div>
+      <div class="phgrid" id="phGrid"></div>
+    </div>
+    <div class="phtab" id="phAlb">
+      <button class="back phback" onclick="show('home')">‹ 홈</button>
+      <div class="phhead"><div class="phbig">앨범</div></div>
+      <div class="phscroll" id="phAlbList"></div>
+    </div>
+    <div class="phtab" id="phAlbum">
+      <div class="bar"><button class="back" onclick="phTab('phAlb')">‹ 앨범</button><b id="phAlbTitle"></b><span style="width:50px"></span></div>
+      <div class="phscroll" id="phAlbBody"></div>
+    </div>
+    <div class="tabs phtabs">
+      <button class="on" onclick="phTab('phLib',this)"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zm9 0h7v7h-7zM4 13h7v7H4zm9 0h7v7h-7z"/></svg>보관함</button>
+      <button onclick="phTab('phAlb',this)"><svg viewBox="0 0 24 24"><path d="M6 3h12a2 2 0 0 1 2 2v11H4V5a2 2 0 0 1 2-2zm-2 15h16v1a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zM9 7a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-3 7h12l-4-5-3 3.5-2-2z"/></svg>앨범</button>
+    </div>
+    <div class="homebar" onclick="show('home')"></div>
+  </section>
+
+  <!-- 사진 보기 -->
+  <div id="phView" class="phview">
+    <div class="pvbar"><button onclick="phClose()">‹</button><div><b id="pvDate"></b><small id="pvTime"></small></div><span></span></div>
+    <div class="pvimg" id="pvImg"></div>
+    <div class="pvcap" id="pvCap"></div>
+    <div class="pvtools"><span onclick="toast('공유할 수 없어요')"><svg viewBox="0 0 28 28"><path d="M14 3v15M9 8l5-5 5 5M8 12H6v13h16V12h-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span id="pvFav" onclick="phFav()"></span><span onclick="phInfo()"><svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="11.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M14 12.5V20M14 8.2v.3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span onclick="phDelete()"><svg viewBox="0 0 28 28"><path d="M5 8h18M11 8V5h6v3M7.5 8l1.2 15h10.6L20.5 8M12 12v7M16 12v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+  </div>
 
   <!-- 시계 (알람) -->
   <section class="screen" id="clockapp">
@@ -839,7 +935,8 @@ const CHATS = [
 
       { date: "7월 19일 일요일" },
       { from: "them", text: "사쿠라군 오늘 대답은 잊어줘", time: "오후 8:00" },
-      { from: "them", text: "미안해, 갑작스러웠지", time: "오후 8:00" },
+      { from: "them", text: "미안해, 갑자기 좋아한다고 말해서", time: "오후 8:00" },
+      { from: "them", text: "당황스러웠지", time: "오후 8:00" },
       { from: "me",   text: "별로", time: "오후 8:02" },
       { from: "me",   text: "괜찮아", time: "오후 8:02" },
       { from: "them", text: "응", time: "오후 8:02" },
@@ -896,7 +993,7 @@ const CHATS = [
       { from: "me",   text: "안자이나 다른 녀석들 보면", time: "오전 9:20" },
       { from: "me",   text: "학교는 좋아하지만", time: "오전 9:20" },
       { from: "me",   text: "다들 공부 때문에 싫다고 해서", time: "오전 9:20" },
-     { from: "me",   text: "하긴, 너 공부 못 하는 편도 아니고", time: "오전 9:20" },
+      { from: "me",   text: "하긴, 너 공부 못 하는 편도 아니고", time: "오전 9:20" },
       { from: "them",   text: "학교를 좋아하는 이유는", time: "오전 9:20" },
       { from: "them",   text: "사쿠라군이 학교에 있기 때문 아닐까?", time: "오전 9:20" },
       { from: "them",   text: "어라, 사쿠라군 또 부끄러워서 숨었다", time: "오전 9:20" },
@@ -1571,6 +1668,36 @@ const SMS = [
 
 ];
 
+/* ----- 사진 앱 -----  위에서부터 오래된 순서 (보관함에선 아래가 최근)
+   emoji: 사진 대신 보여줄 이모지, bg: 배경색, image: 진짜 사진 파일을 쓰려면 "파일이름.jpg"
+   caption: 사진을 누르고 ⓘ 를 누르면 보이는 설명
+   albums: 이 사진이 들어갈 앨범 이름들, fav: true = 즐겨찾기 ♥
+   deleted: true = '최근 삭제된 항목'에만 보여요 (left: 남은 일수)                       */
+const PHOTO_ALBUMS = ["스오", "음식"];
+// ▶ '최근 삭제된 항목' 잠금 비밀번호 (틀리면 흔들리고, 3번 틀리면 힌트가 떠요)
+const PHOTO_LOCK = { password: "0328", hint: "그 녀석 생일(숫자 4자리)" };   // 나의 앨범에 보일 앨범 (최근 항목·즐겨찾기는 자동)
+const PHOTOS = [
+  { date: "4월 5일",   time: "오후 6:30",  emoji: "🏫", bg: "#cfd8dc", caption: "옥상에서." },
+  { date: "4월 24일",  time: "오후 8:20",  emoji: "🌸", bg: "#f8bbd0", caption: "흔들린 내 사진"},
+  { date: "4월 24일",  time: "오후 8:21",   image: "cherry.jpg", bg: "#fce4ec", caption: "니레 녀석이 찍은거", albums: ["보후린"] },
+  { date: "5월 12일",  time: "오후 12:40", emoji: "🍳🍚", bg: "#fff3c4", caption: "포토스 오므라이스.", albums: ["음식"] },
+  { date: "5월 30일",  time: "오후 4:12",  emoji: "🍡", bg: "#ffe0e6", caption: "벚꽃 모양 과자. 스오가 사 온 거", albums: ["스오", "음식"], fav: true },
+  { date: "6월 9일",   time: "오후 4:50",  emoji: "☕", bg: "#efebe9", caption: "얼그레이", albums: ["스오"] , fav: true},
+  { date: "6월 10일",  time: "오후 5:05",  emoji: "🍵", bg: "#dcedc8", caption: "녹차", albums: ["스오"] , fav: true},
+  { date: "7월 19일",  time: "오후 11:43", emoji: "🌙", bg: "#283593", caption: "저 녀석이 예쁘다고 했던 달", albums: ["스오"], fav: true },
+  { date: "7월 22일",  time: "오후 3:10",  emoji: "🎡", bg: "#ffe082", caption: "같이 갔던 놀이공원.", albums: ["스오"] },
+  { date: "8월 29일",  time: "오후 7:40",  emoji: "🍛", bg: "#ffccbc", caption: "포토스", albums: ["음식"] },
+  { date: "9월 3일",   time: "오전 8:55",  emoji: "✏️", bg: "#fff8e1", caption: "같이 공부하자고 했는데 아직도 이해가 안된다", albums: ["보후린"] },
+  { date: "9월 11일",  time: "오후 8:06",  emoji: "🐈‍⬛", bg: "#eeeeee", caption: "닮았다고 보내준 고양이", albums: ["스오"], fav: true },
+  { date: "10월 21일", time: "오후 5:10",  emoji: "🫖", bg: "#e8f5e9", caption: "스오", albums: ["스오"], fav: true },
+  { date: "10월 22일", time: "오후 9:47",  emoji: "🌃", bg: "#1a237e", caption: "바래다준 길", albums: ["스오"] },
+  { date: "10월 26일", time: "오후 11:02",  image: "suo.pic.jpg", bg: "#fff9c4", caption: "스오 증명 사진", albums: [] },
+
+  // ↓ 최근 삭제된 항목
+ { date: "10월 22일", time: "오후 9:45",  image: "suosaku.jpg", bg: "#d1c4e9", caption: "평생 곁에 있는다고 했으면서 / @크레페 ru님 작업물", deleted: true, left: 17 },
+  
+];
+
 /* ----- 시계 앱 알람 -----  on: true 면 켜짐, label: 시간 아래 글자 */
 const ALARMS = [
   { time: "오전 5:50", label: "알람", on: false },
@@ -1664,8 +1791,14 @@ const SAFARI = {
 };
 
 /* ----- 메모 ----- (줄바꿈은 \n) */
+// ▶ 잠긴 메모: locked: true, password: "암호", hint: "암호 힌트"  (틀리면 흔들리고, 3번 틀리면 힌트가 떠요)
 const MEMOS = [
-  
+  {
+    title: "메모", date: "10월 20일",
+    locked: true, password: "0719", hint: "그 녀석이 고백한 날 (숫자 4자리, 라인을 찾아보세요!)",
+    body: "그 녀석이 좋아하는 것\n도움만 받을 순 없으니까 적어놓고 잘 챙겨주자\n 동물들은 다 좋다\n 최근엔 고양이가 좋다고한다 \n 차는 쓴거보단 향기로운게 좋다\n 얼그레이를 좋아한다고한다\n 우롱차도 좋다고한다\n 생각보다 녹차는 잘 안마신다고한다\n 쓴 차에 단 과자를 먹는게 좋다고 했다\n 차는 두세번 우려도 좋은 향이 난다고 했다\n 좋아하는건 백색 자기\n찻주전자가 가지고 싶다 했다\n그 녀석 생일은 3월 28일 ,챙겨주자\n ",
+  },
+
   { title: "사쿠라군", date: "7월 20일", body: "메모장에 아무것도 없잖아.\n핸드폰 잘 쓰는거 맞지?\n\n아래 바보라고써져있는데 확인도 안 하고...\n 사실 사쿠라군이 내 고백을 받아줬을 때 \n 얼마나 행복 했는지 몰라\n 너무 갑작스럽게 고백해버렸지\n 사실 사쿠라군 앞에서는 멋있게 하고싶었는데\n 갑자기 그런 말이 나와버렸어\n 너무 놀라서 도망치 듯 나와버렸지만 \n 사쿠라군은 역시 멋있네\n 그런 사쿠라군이 좋아\n 이 글을 볼 때 사쿠라군은 어떤 표정을 지을까~\n아무튼 여러모로 고마워 사쿠라군\n 스오가" },
   { title: "사쿠라 바보", date: "4월 10일", body: "누구게 ㅋㅋ\n-다문중 미남-.\n\n" },
 ];
@@ -2168,12 +2301,15 @@ function show(id) {
   if (openFrom && prev === "home" && id !== "home") {   // 아이콘에서 커지며 열리기
     const el = $(id);
     el.style.transformOrigin = `${openFrom.x}px ${openFrom.y}px`;
+    const disp = document.querySelector(".display");
+    disp.classList.add("zooming");
     el.classList.add("zoom");
     $("home").classList.add("peek");          // 커지는 동안 뒤에 홈 화면이 보이게 (깜빡임 방지)
-    setTimeout(() => { el.classList.remove("zoom"); $("home").classList.remove("peek"); }, 400);
+    setTimeout(() => { el.classList.remove("zoom"); $("home").classList.remove("peek"); disp.classList.remove("zooming"); }, 340);
   }
   openFrom = null;
   if (id === "safari" && prev === "home") sfHome();
+  if (id === "photos" && prev === "home") { phClose(); phTab("phLib"); }
   $("status").classList.toggle("dark", $(id).hasAttribute("data-dark"));
   if (id === "pass") resetPass();
   if (id === "home") { scheduleCall(); armIgnoreEvents(); armStartMessages(); }
@@ -2264,13 +2400,60 @@ function checkPass() {
 }
 
 /* 메모 */
-$("memoList").innerHTML = MEMOS.map((m, i) =>
-  `<div class="row" onclick="openMemo(${i})"><b>${m.title}</b><p>${m.date} &nbsp;${m.body.split("\n")[0]}</p></div>`).join("");
+function drawMemos() {
+  $("memoList").innerHTML = MEMOS.map((m, i) => {
+    const closed = m.locked && !m.opened;
+    const preview = closed ? "잠김" : esc(m.body.split("\n")[0]);
+    return `<div class="row" onclick="openMemo(${i})"><b>${m.locked ? `<span class="mlock">${m.opened ? LOCK_OPEN : LOCK_SVG}</span>` : ""}${esc(m.title)}</b><p>${esc(m.date)} &nbsp;${preview}</p></div>`;
+  }).join("");
+}
+const LOCK_SVG = `<svg viewBox="0 0 14 18"><path d="M2 8V5.5a5 5 0 0 1 10 0V8h.5A1.5 1.5 0 0 1 14 9.5v7a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 0 16.5v-7A1.5 1.5 0 0 1 1.5 8zm2 0h6V5.5a3 3 0 0 0-6 0z"/></svg>`;
+const LOCK_OPEN = `<svg viewBox="0 0 14 18"><path d="M4 8V5.5a3 3 0 0 1 5.8-1.1l1.9-.7A5 5 0 0 0 2 5.5V8h-.5A1.5 1.5 0 0 0 0 9.5v7A1.5 1.5 0 0 0 1.5 18h11a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 12.5 8z"/></svg>`;
+let memoCur = null, memoTries = 0;
 function openMemo(i) {
   const m = MEMOS[i];
-  $("memoBody").innerHTML = `<small>${m.date}</small><h3>${m.title}</h3>`;
-  $("memoBody").append(m.body);
+  memoCur = i;
+  if (m.locked && !m.opened) {                      // 잠긴 메모
+    memoTries = 0;
+    $("memoBody").innerHTML = `<div class="mlocked"><div class="mbiglock">${LOCK_SVG}</div><b>이 메모는 잠겨 있습니다</b>
+      <p>이 메모를 보려면 암호를 입력하십시오.</p><button class="mview" onclick="memoAsk()">메모 보기</button></div>`;
+  } else {
+    $("memoBody").innerHTML = `<small>${esc(m.date)}</small><h3></h3>`;
+    $("memoBody").querySelector("h3").textContent = m.title;
+    $("memoBody").append(m.body);
+  }
   show("memoView");
+}
+function memoAsk() {
+  const m = MEMOS[memoCur];
+  $("memoBody").insertAdjacentHTML("beforeend", `<div class="mdlg" id="mdlg"><div class="mbox" id="mbox">
+      <b>암호 입력</b><p>"${esc(m.title)}" 메모의 암호를 입력하십시오.</p>
+      <input type="password" id="mpw" inputmode="numeric" autocomplete="off" placeholder="암호">
+      <div class="mhint" id="mhint"></div>
+      <div class="mbtns2"><button onclick="memoHint()">힌트</button><button onclick="memoClose()">취소</button><button class="ok" onclick="memoTry()">확인</button></div>
+    </div></div>`);
+  const pw = $("mpw");
+  pw.focus();
+  pw.addEventListener("keydown", e => { if (e.key === "Enter") memoTry(); });
+}
+function memoClose() { const d = $("mdlg"); if (d) d.remove(); }
+function memoHint() { $("mhint").textContent = "힌트: " + (MEMOS[memoCur].hint || "없음"); }
+function memoTry() {
+  const m = MEMOS[memoCur], pw = $("mpw");
+  if (pw.value.trim() === String(m.password)) {
+    m.opened = true;
+    memoClose(); drawMemos();
+    openMemo(memoCur);
+    $("memoBody").classList.add("mfade");
+    setTimeout(() => $("memoBody").classList.remove("mfade"), 700);
+    return;
+  }
+  memoTries++;
+  const box = $("mbox");
+  box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+  pw.value = "";
+  $("mhint").textContent = memoTries >= 3 ? "힌트: " + (m.hint || "없음") : "암호가 올바르지 않습니다.";
+  pw.focus();
 }
 
 /* 전화 앱 */
@@ -2978,6 +3161,124 @@ function profCall() {
   const c = CONTACTS.find(x => x.name === f.name);
   callPerson(c ? { ...c, avatar: c.avatar || f.avatar } : { name: f.name, avatar: f.avatar, color: f.color, hideLetter: f.hideLetter, lines: [] }, "LINE 음성통화 연결 중...");
 }
+
+drawMemos();
+
+/* 사진 앱 */
+const PH_HEART = on => `<svg viewBox="0 0 28 28"><path d="M14 24s-9-5.6-9-12.2A5 5 0 0 1 14 9a5 5 0 0 1 9 2.8C23 18.4 14 24 14 24z" fill="${on ? "currentColor" : "none"}" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>`;
+let phList = [], phIdx = 0, phDelOpen = false;
+function phThumb(ph, i, listName) {
+  const inner = ph.image ? `<img src="${ph.image}" alt="">` : `<span>${ph.emoji || "🖼️"}</span>`;
+  return `<div class="pht" style="background:${ph.bg || "#ddd"}" onclick="phOpen('${listName}',${i})">${inner}${ph.fav ? `<i class="phfav">♥</i>` : ""}${ph.deleted ? `<i class="phleft">${ph.left || 30}일</i>` : ""}</div>`;
+}
+const phAlive = () => PHOTOS.filter(p => !p.deleted);
+const PH_LISTS = {
+  lib: () => phAlive(),
+  fav: () => phAlive().filter(p => p.fav),
+  del: () => PHOTOS.filter(p => p.deleted),
+};
+PHOTO_ALBUMS.forEach(a => PH_LISTS["a:" + a] = () => phAlive().filter(p => (p.albums || []).includes(a)));
+function drawPhotos() {
+  const list = PH_LISTS.lib();
+  $("phGrid").innerHTML = `<div class="phgi">${list.map((ph, i) => phThumb(ph, i, "lib")).join("")}</div>`;
+  $("phCount").textContent = `사진 ${list.length}장`;
+  const cover = l => { const x = PH_LISTS[l]().slice(-1)[0]; return x ? `<div class="phcover" style="background:${x.bg}">${x.image ? `<img src="${x.image}" alt="">` : x.emoji}</div>` : `<div class="phcover empty"></div>`; };
+  const card = (l, name) => `<div class="phalb" onclick="phAlbum('${l}','${esc(name)}')">${cover(l)}<b>${esc(name)}</b><small>${PH_LISTS[l]().length}</small></div>`;
+  $("phAlbList").innerHTML = `<div class="phsec">나의 앨범</div><div class="phalbs">${card("lib", "최근 항목")}${card("fav", "즐겨찾기")}${PHOTO_ALBUMS.map(a => card("a:" + a, a)).join("")}</div>
+    <div class="phsec">유틸리티</div>
+    <div class="phutil" onclick="phAlbum('del','최근 삭제된 항목')"><span>🗑️</span><b>최근 삭제된 항목</b><small>${phDelOpen ? PH_LISTS.del().length : LOCK_SVG}</small></div>`;
+}
+function phTab(id, btn) {
+  document.querySelectorAll("#photos .phtab").forEach(t => t.classList.toggle("on", t.id === id));
+  if (id !== "phAlbum") document.querySelectorAll("#photos .phtabs button").forEach((b, k) => b.classList.toggle("on", (id === "phLib" ? 0 : 1) === k));
+  if (id === "phLib") $("phGrid").scrollTop = $("phGrid").scrollHeight;   // 애니메이션 시작 전에 맨 아래(최근)로
+}
+let phCurAlb = null;
+function phAlbum(l, name) {
+  phCurAlb = { l, name };
+  $("phAlbTitle").textContent = name;
+  if (l === "del" && !phDelOpen) {
+    $("phAlbBody").innerHTML = `<div class="phlockd"><div class="mbiglock">${LOCK_SVG}</div><b>이 앨범은 잠겨 있습니다</b><p>암호를 입력하여 앨범을 보십시오.</p><button class="phunlock" onclick="phAsk()">앨범 보기</button></div>`;
+  } else {
+    const list = PH_LISTS[l]();
+    $("phAlbBody").innerHTML = (l === "del" ? `<p class="phnote">항목이 영구적으로 삭제되기 전까지 남은 일수가 표시됩니다.</p>` : "")
+      + `<div class="phgi">${list.map((ph, i) => phThumb(ph, i, l)).join("")}</div>`
+      + (list.length ? "" : `<p class="phnote">사진 없음</p>`);
+  }
+  phTab("phAlbum");
+}
+let phTries = 0;
+function phAsk() {
+  phTries = 0;
+  $("photos").insertAdjacentHTML("beforeend", `<div class="mdlg phdlg" id="phdlg"><div class="mbox" id="phbox">
+      <b>암호 입력</b><p>"최근 삭제된 항목"을 보려면 암호를 입력하십시오.</p>
+      <input type="password" id="phpw" inputmode="numeric" autocomplete="off" placeholder="암호">
+      <div class="mhint" id="phhint"></div>
+      <div class="mbtns2"><button onclick="phHint()">힌트</button><button onclick="phAskClose()">취소</button><button class="ok" onclick="phTry()">확인</button></div>
+    </div></div>`);
+  const pw = $("phpw");
+  pw.focus();
+  pw.addEventListener("keydown", e => { if (e.key === "Enter") phTry(); });
+}
+function phAskClose() { const d = $("phdlg"); if (d) d.remove(); }
+function phHint() { $("phhint").textContent = "힌트: " + (PHOTO_LOCK.hint || "없음"); }
+function phTry() {
+  const pw = $("phpw");
+  if (pw.value.trim() === String(PHOTO_LOCK.password)) {
+    phAskClose();
+    phDelOpen = true; drawPhotos(); phAlbum("del", "최근 삭제된 항목");
+    return;
+  }
+  phTries++;
+  const box = $("phbox");
+  box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+  pw.value = "";
+  $("phhint").textContent = phTries >= 3 ? "힌트: " + (PHOTO_LOCK.hint || "없음") : "암호가 올바르지 않습니다.";
+  pw.focus();
+}
+function phOpen(l, i) {
+  phList = PH_LISTS[l](); phIdx = i;
+  phRender();
+  $("phView").classList.add("show");
+}
+function phRender() {
+  const ph = phList[phIdx];
+  if (!ph) return phClose();
+  $("pvDate").textContent = ph.date;
+  $("pvTime").textContent = ph.time || "";
+  $("pvImg").style.background = ph.bg || "#ddd";
+  $("pvImg").innerHTML = ph.image ? `<img src="${ph.image}" alt="">` : `<span>${ph.emoji || "🖼️"}</span>`;
+  $("pvCap").textContent = ph.caption || "";
+  $("pvCap").classList.remove("show");
+  $("pvFav").innerHTML = PH_HEART(ph.fav);
+  $("pvFav").style.color = ph.fav ? "#ff3b30" : "";
+}
+function phClose() { $("phView").classList.remove("show"); }
+function phFav() { const ph = phList[phIdx]; ph.fav = !ph.fav; phRender(); drawPhotos(); }
+function phInfo() { $("pvCap").classList.toggle("show"); if (!$("pvCap").textContent) $("pvCap").textContent = "설명 없음"; }
+function phDelete() {
+  const ph = phList[phIdx];
+  if (ph.deleted) return toast("이미 삭제된 사진이에요");
+  ph.deleted = true; ph.left = 30;
+  drawPhotos(); phClose(); toast("최근 삭제된 항목으로 이동했어요");
+  if ($("phAlbum").classList.contains("on") && phCurAlb) phAlbum(phCurAlb.l, phCurAlb.name);
+}
+(function phSwipe() {      // 사진 보기에서 좌우로 넘기기
+  const v = $("pvImg"); let x0 = null;
+  v.addEventListener("pointerdown", e => { x0 = e.clientX; });
+  v.addEventListener("pointerup", e => {
+    if (x0 === null) return; const dx = e.clientX - x0; x0 = null;
+    if (dx < -40 && phIdx < phList.length - 1) { phIdx++; phRender(); }
+    else if (dx > 40 && phIdx > 0) { phIdx--; phRender(); }
+  });
+  document.addEventListener("keydown", e => {
+    if (!$("phView").classList.contains("show")) return;
+    if (e.key === "ArrowLeft" && phIdx > 0) { phIdx--; phRender(); }
+    if (e.key === "ArrowRight" && phIdx < phList.length - 1) { phIdx++; phRender(); }
+    if (e.key === "Escape") phClose();
+  });
+})();
+drawPhotos();
 
 /* 시계 앱 */
 function drawAlarms() {
